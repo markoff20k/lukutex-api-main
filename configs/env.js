@@ -1,0 +1,9 @@
+const MYSQL_ENV_HOST = '104.154.61.124';
+const MYSQL_ENV_USERNAME = 'fortem23';
+const MYSQL_ENV_PASSWORD = '132Mudar@';
+
+module.exports = {
+    MYSQL_ENV_USERNAME,
+    MYSQL_ENV_HOST,
+    MYSQL_ENV_PASSWORD
+}
