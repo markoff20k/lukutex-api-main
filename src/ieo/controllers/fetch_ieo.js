@@ -141,14 +141,15 @@ exports.fetchByIEOID = async(req, res, next) => {
         } else if (now > endDate) {
             type = 'ended';
         }
-        const newbonus = ieo[0][0].bonus.replace(/ /g, '').split('&').map(b => {
-            const bonusRange = b.split('=')[0];
-            const bonusValue = b.split('=')[1];
+        // const newbonus = ieo[0][0].bonus.replace(/ /g, '').split('&').map(b => {
+        //     const bonusRange = b.split('=')[0];
+        //     const bonusValue = b.split('=')[1];
 
-            return {
-                [bonusRange]: bonusValue
-            };
-        })
+        //     return {
+        //         [bonusRange]: bonusValue
+        //     };
+        // })
+        const newbonus = 0;
         const newIEO = {
             ...ieo[0][0],
             type: type,
