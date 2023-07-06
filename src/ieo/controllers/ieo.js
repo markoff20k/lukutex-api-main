@@ -131,7 +131,8 @@ exports.buy = async(req, res, next) => {
         const memberID = await getMemberIDByUid(uid);
 
         // Total Quantity User will recieve
-        const bonusQuantity = getBonus(quantity, ieoInfo.bonus);
+        // const bonusQuantity = getBonus(quantity, ieoInfo.bonus);
+        const bonusQuantity = 1;
         const totalQuantity = quantity + bonusQuantity;
 
         // Base currency & Quote currency

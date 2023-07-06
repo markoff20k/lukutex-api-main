@@ -149,7 +149,7 @@ exports.fetchByIEOID = async(req, res, next) => {
         //         [bonusRange]: bonusValue
         //     };
         // })
-        const newbonus = 0;
+        const newbonus = 1;
         const newIEO = {
             ...ieo[0][0],
             type: type,
