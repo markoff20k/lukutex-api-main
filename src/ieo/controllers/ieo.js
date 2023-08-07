@@ -78,6 +78,14 @@ const getPrice = async(fsym, tsyms, base_price) => {
                 const swpPrice = await axios.get('https://www.lukutex.com/api/v2/peatio/public/markets/swpusdt/tickers');
                 quote_price = Number(swpPrice.data.ticker.last) || 0;
                 break;
+            case 'FTK':
+                const ftkPrice = await axios.get('https://homolog.fortem1.com.br/api/v2/trade/public/markets/ftkbrl/tickers');
+                quote_price = Number(ftkPrice.data.ticker.last) || 0;
+                break;                
+            case 'KART':
+                const kartPrice = await axios.get('https://homolog.fortem1.com.br/api/v2/trade/public/markets/kartbrl/tickers');
+                quote_price = Number(kartPrice.data.ticker.last) || 0;
+                break;                      
             default:
                 const price = await axios.get(`${COMPARE_BASE_API_URL}?fsym=${fsym}&tsyms=${tsyms}&api_key=${API_KEY}`);
                 quote_price = price.data[tsyms] || 0;
@@ -91,6 +99,10 @@ const getPrice = async(fsym, tsyms, base_price) => {
                 return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));
             case 'SWP':
                 return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));
+            case 'FTK':
+                return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));                
+            case 'KART':
+                return NP.divide(NP.divide(1, quote_price), NP.divide(1, base_price));                
             default:
                 return NP.divide(quote_price, NP.divide(1, base_price));
         }
@@ -133,7 +145,8 @@ exports.buy = async(req, res, next) => {
         // Total Quantity User will recieve
         // const bonusQuantity = getBonus(quantity, ieoInfo.bonus);
         const bonusQuantity = 1;
-        const totalQuantity = quantity + bonusQuantity;
+        //const totalQuantity = quantity + bonusQuantity;
+        const totalQuantity = quantity;
 
         // Base currency & Quote currency
         const base_currency = ieoInfo.currency_id;
@@ -141,7 +154,7 @@ exports.buy = async(req, res, next) => {
 
         // Check remains
         const remains = Number(ieoInfo.remains);
-        if (remains < totalQuantity) throw new Error('Sorry. Out of tokens to ieo');
+        if (remains < totalQuantity) throw new Error('Quantidade de tokens indisponível');
 
         // Check quote_currency in currency_available of ieo
         const currency_available = ieoInfo.currency_available.replace(/ /g, '').split(',');
@@ -181,18 +194,18 @@ exports.buy = async(req, res, next) => {
             await buyHistoryData.save();
         } catch (error) {
             console.log(error);
-            throw new Error('Buy failed');
+            throw new Error('Erro no processamento da compra');
         }
 
         res.status(200).json({
-            msg: 'Buy success',
+            msg: 'Compra efetivada',
             success: true,
             ...buyInfo
         });
 
     } catch (error) {
         console.log(error.message);
-        res.status(400).json({ msg: 'Buy failed' })
+        res.status(400).json({ msg: 'Erro no processamento da compra' })
     }
 };
 
