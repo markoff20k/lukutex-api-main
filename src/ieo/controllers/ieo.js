@@ -164,7 +164,7 @@ exports.buy = async(req, res, next) => {
         await getBaseBalanceAccount(memberID, base_currency);
         const purchaseBalance = await getQuoteBalanceAccount(memberID, quote_currency);
 
-        const price = await getPrice('USD', String(quote_currency).toUpperCase(), ieoInfo.price);
+        const price = await getPrice('BRL', String(quote_currency).toUpperCase(), ieoInfo.price);
         if (!(price && price > 0)) throw new Error('Can not get price of selected currency.');
 
         const totalPurchase = NP.times(price, quantity); // price of currency (CopmareCrypt) * quantity * defaultPrice on database
