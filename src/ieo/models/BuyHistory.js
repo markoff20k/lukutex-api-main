@@ -54,13 +54,17 @@ module.exports = class BuyHistory {
         return db.execute("SELECT uid FROM buy_history WHERE ieo_id = ? GROUP BY uid", [ieoID]);
     }
 
-    static fetchBuyersPage(ieoID, pageNumber, pageSize) {
-        return db.execute(`SELECT id, uid, quantity, base_currency, total, quote_currency, status, created_at FROM buy_history 
-        WHERE ieo_id = ? ORDER BY id DESC LIMIT ?, ?`, [ieoID, pageNumber * pageSize, pageSize]);
+    static fetchBuyersPage(uid) {
+        return db.execute(`SELECT * FROM buy_history WHERE uid = ? `, [uid]);
+        //return db.execute(`SELECT * FROM buy_history`, [uid]);
     }
 
+    // static fetchByIEOID(ieoID) {
+    //     return db.execute(`SELECT * FROM ieo_list WHERE id = ?`, [ieoID]);
+    // }
+
     static getBuyersTotal(ieoID) {
-        return db.execute("SELECT COUNT(ieo_id) as 'total' FROM buy_history WHERE ieo_id = ?", [ieoID]);
+        return db.execute("SELECT * FROM buy_history WHERE ieo_id = ?", [ieoID]);
     }
 
     static fetchBuyPage(uid, ieoID, pageNumber, pageSize) {

@@ -14,7 +14,7 @@ router.get("/total-buyers/ieo_id=:ieo_id", totalBuyersController.getTotalBuyers)
 router.post("/buy", ieoController.buy);
 
 
-router.get("/fetch/buyers/ieo_id=:ieo_id&page=:page&size=:size", ieoController.fetchBuyers);
+router.get("/fetch/buyers/uid=:uid", ieoController.fetchBuyers);
 router.get("/fetch/buy/uid=:uid/ieo_id=:ieo_id&page=:page&size=:size", ieoController.fetchBuy);
 
 module.exports = router;

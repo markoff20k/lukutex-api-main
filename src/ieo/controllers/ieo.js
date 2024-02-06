@@ -213,22 +213,30 @@ exports.buy = async(req, res, next) => {
 
 // ------------------------BUY HISTORY------------------------
 exports.fetchBuyers = async(req, res, next) => {
-    const ieoID = +req.params.ieo_id;
-    const pageNumber = +req.params.page;
-    const pageSize = +req.params.size;
+    //const uid = +req.params.uid;
+    const uid = req.params.uid;
+    //const pageNumber = +req.params.page;
+    //const pageSize = +req.params.size;
 
     try {
-        const buyers = await BuyHistoryModel.fetchBuyersPage(ieoID, pageNumber, pageSize)
-        const total = await BuyHistoryModel.getBuyersTotal(ieoID);
+        const buys = await BuyHistoryModel.fetchBuyersPage(uid)
+        //const total = await BuyHistoryModel.getBuyersTotal(ieoID);
+
+        // res.status(200).json({
+        //     msg: 'Fetch page successfully!',
+        //     ...buyers
+        // });
+
+
         res.status(200).json({
             msg: "Fetch page successfully!",
-            payload: buyers[0],
-            total: total[0][0].total
+            payload: buys[0],
+            // total: total[0][0].total
         })
     } catch (error) {
         console.log(error);
         res.status(404).json({
-            msg: "Fetch page failed",
+            msg: "Fetch page failed2",
             payload: [],
             err: error,
         })
