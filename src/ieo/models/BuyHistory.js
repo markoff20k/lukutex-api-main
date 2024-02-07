@@ -55,7 +55,7 @@ module.exports = class BuyHistory {
     }
 
     static fetchBuyersPage(uid) {
-        return db.execute(`SELECT * FROM buy_history WHERE uid = ? `, [uid]);
+        return db.execute(`SELECT * FROM buy_history WHERE uid = ? ORDER BY id DESC`, [uid]);
         //return db.execute(`SELECT * FROM buy_history`, [uid]);
     }
 
